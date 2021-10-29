@@ -9,11 +9,9 @@
         <version>2.5.6</version>
     </parent>
 
-    <groupId>uk.ac.ebi</groupId>
+    <groupId>uk.ac.ebi.eva</groupId>
     <artifactId>eva-metrics</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>eva-metrics</name>
-    <description>eva-metrics</description>
     <packaging>jar</packaging>
 
     <properties>
@@ -46,10 +44,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.6</version>
@@ -58,6 +52,21 @@
                         <!-- Provide a delimiter that doesn't clash with Spring ${} placeholders nor @ in URLs -->
                         <delimiter>|</delimiter>
                     </delimiters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
         </plugins>
