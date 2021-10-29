@@ -63,19 +63,15 @@
         </plugins>
     </build>
 
-    <repositories>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>cloudsmith</id>
+            <url>https://maven.cloudsmith.io/ebivariation/packages/</url>
+        </snapshotRepository>
         <repository>
             <id>cloudsmith</id>
-            <url>https://dl.cloudsmith.io/public/ebivariation/packages/maven/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
+            <url>https://maven.cloudsmith.io/ebivariation/packages/</url>
         </repository>
-    </repositories>
+    </distributionManagement>
 
 </project>
