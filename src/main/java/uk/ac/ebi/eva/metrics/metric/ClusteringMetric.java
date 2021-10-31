@@ -10,7 +10,6 @@ public enum ClusteringMetric implements Metric {
     SUBMITTED_VARIANTS_RS_MERGED("submitted_variants_rs_merged", "Number of Submitted Variants updated because of RS merged", 0),
     SUBMITTED_VARIANTS_UPDATED_OPERATIONS("submitted_variants_updated", "Number of Submitted Variants update operations performed", 0);
 
-    private static final String PROCESS = "clustering";
     private String name;
     private String description;
     private long count;
@@ -19,10 +18,6 @@ public enum ClusteringMetric implements Metric {
         this.name = name;
         this.description = description;
         this.count = count;
-    }
-
-    public String getProcessName() {
-        return PROCESS;
     }
 
     public String getName() {
@@ -39,6 +34,10 @@ public enum ClusteringMetric implements Metric {
 
     public void addCount(long count) {
         this.count += count;
+    }
+
+    public void clearCount() {
+        this.count = 0;
     }
 
     @Override

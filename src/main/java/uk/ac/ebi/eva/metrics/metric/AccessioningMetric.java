@@ -4,7 +4,6 @@ public enum AccessioningMetric implements Metric {
     SUBMITTED_VARIANTS("submitted_variants", "Number of variants submitted for accessioning", 0),
     DISCARDED_VARIANTS("discarded_variants", "Number of variants discarded while accessioning", 0);
 
-    private static final String PROCESS = "accessioning_warehouse_ingestion";
     private String name;
     private String description;
     private long count;
@@ -13,10 +12,6 @@ public enum AccessioningMetric implements Metric {
         this.name = name;
         this.description = description;
         this.count = count;
-    }
-
-    public String getProcessName() {
-        return PROCESS;
     }
 
     public String getName() {
@@ -33,6 +28,10 @@ public enum AccessioningMetric implements Metric {
 
     public void addCount(long count) {
         this.count += count;
+    }
+
+    public void clearCount(){
+        this.count = 0;
     }
 
     @Override
