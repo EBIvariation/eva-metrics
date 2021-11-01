@@ -1,14 +1,16 @@
 package uk.ac.ebi.eva.metrics.metric;
 
 public enum ClusteringMetric implements Metric {
-    SUBMITTED_VARIANTS("submitted_variants", "Number of variants(SS) picked up for clustering", 0),
-    CREATED_VARIANTS("created_variants", "Number of Variants Created (RS created)", 0),
-    UPDATED_VARIANTS("updated_variants", "Number of Variants Updated (RS updated)", 0),
-    MERGED_VARIANTS("merged_variants", "Number of Variants Merged (RS merged)", 0),
+
+    CLUSTERED_VARIANTS_CREATED("clustered_variants_created", "Number of new clustered variants created", 0),
+    CLUSTERED_VARIANTS_UPDATED("clustered_variants_updated","Number of clustered variants updated",0),
+    CLUSTERED_VARIANTS_RS_SPLIT("clustered_variants_rs_split", "Number of clustered variants whose rs is split", 0),
+    CLUSTERED_VARIANTS_MERGED("clustered_variants_merged", "Number of clustered variants merged", 0),
+    CLUSTERED_VARIANTS_MERGE_OPERATIONS("clustered_variants_merge_operations", "Number of merge operations on clustered variants", 0),
     SUBMITTED_VARIANTS_CLUSTERED("submitted_variants_clustered", "Number of Variants(SS) Clustered", 0),
-    SUBMITTED_VARIANTS_UNCLUSTERED("submitted_variants_unclustered", "Number of Variants(SS) kept Unclustered", 0),
-    SUBMITTED_VARIANTS_RS_MERGED("submitted_variants_rs_merged", "Number of Submitted Variants updated because of RS merged", 0),
-    SUBMITTED_VARIANTS_UPDATED_OPERATIONS("submitted_variants_updated", "Number of Submitted Variants update operations performed", 0);
+    SUBMITTED_VARIANTS_KEPT_UNCLUSTERED("submitted_variants_kept_unclustered", "Number of submitted variants kept unclustered", 0),
+    SUBMITTED_VARIANTS_UPDATED_RS("submitted_variants_updated_rs", "Number of variants(ss) whose rs is updated", 0),
+    SUBMITTED_VARIANTS_UPDATE_OPERATIONS("submitted_variants_update_operations", "Number of submitted variants update operations performed", 0);
 
     private String name;
     private String description;
