@@ -9,10 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.RestTemplate;
 import uk.ac.ebi.eva.metrics.count.CountServiceParameters;
 import uk.ac.ebi.eva.metrics.metric.Metric;
 import uk.ac.ebi.eva.metrics.metric.MetricComputeImpl;
-import uk.ac.ebi.eva.metrics.util.MetricUtil;
 
 import java.net.URI;
 import java.util.Arrays;
@@ -29,12 +29,15 @@ class EvaMetricsApplicationTests {
     @Autowired
     private CountServiceParameters countServiceParameters;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     private MockRestServiceServer mockServer;
     private final String URL_PATH_SAVE_COUNT = "/v1/bulk/count";
 
     @BeforeEach
     public void setup() throws Exception {
-        mockServer = MockRestServiceServer.createServer(MetricUtil.getRestTemplate(countServiceParameters));
+        mockServer = MockRestServiceServer.createServer(restTemplate);
         mockServer.expect(ExpectedCount.manyTimes(), requestTo(new URI(countServiceParameters.getUrl() + URL_PATH_SAVE_COUNT)))
                 .andExpect(method(HttpMethod.POST))
                 .andRespond(withStatus(HttpStatus.OK));
@@ -47,12 +50,11 @@ class EvaMetricsApplicationTests {
     @Test
     public void testMetricCount() {
         MetricComputeImpl metricComputeImpl = getMetricCompute();
-        metricComputeImpl.setCountServiceParameters(countServiceParameters);
         metricComputeImpl.saveMetricsCountsInDB();
     }
 
     public MetricComputeImpl getMetricCompute() {
-        return new MetricComputeImpl() {
+        return new MetricComputeImpl(countServiceParameters, restTemplate) {
             @Override
             public String getProcessName() {
                 return "test-process";

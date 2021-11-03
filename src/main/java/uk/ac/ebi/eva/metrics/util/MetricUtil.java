@@ -2,9 +2,6 @@ package uk.ac.ebi.eva.metrics.util;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.web.client.RestTemplate;
-import uk.ac.ebi.eva.metrics.count.CountServiceParameters;
 
 public class MetricUtil {
 
@@ -27,9 +24,5 @@ public class MetricUtil {
         } catch (JSONException jsonException) {
             throw new RuntimeException("Could not create Identifier for Clustering Counts. Error ", jsonException);
         }
-    }
-
-    public static RestTemplate getRestTemplate(CountServiceParameters countServiceParameters) {
-        return new RestTemplateBuilder().basicAuthentication(countServiceParameters.getUserName(), countServiceParameters.getPassword()).build();
     }
 }
