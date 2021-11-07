@@ -18,14 +18,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class MetricComputeImpl implements MetricCompute {
+public abstract class BaseMetricCompute implements MetricCompute {
     private static final Logger logger = LoggerFactory.getLogger(uk.ac.ebi.eva.metrics.metric.MetricCompute.class);
     private static final String URL_PATH_SAVE_COUNT = "/v1/bulk/count";
 
     private CountServiceParameters countServiceParameters;
     private RestTemplate restTemplate;
 
-    public MetricComputeImpl(CountServiceParameters countServiceParameters, RestTemplate restTemplate) {
+    public BaseMetricCompute(CountServiceParameters countServiceParameters, RestTemplate restTemplate) {
         this.countServiceParameters = countServiceParameters;
         this.restTemplate = restTemplate;
     }
@@ -41,9 +41,12 @@ public abstract class MetricComputeImpl implements MetricCompute {
     }
 
     public void saveMetricsCountsInDB() {
+        String processName = getProcessName();
+        String identifier = getIdentifier();
+
         List<Count> counts = new ArrayList<>();
         for (Metric metric : getMetrics()) {
-            counts.add(new Count(getProcessName(), getIdentifier(), metric.getName(), metric.getCount()));
+            counts.add(new Count(processName, identifier, metric.getName(), metric.getCount()));
         }
 
         HttpHeaders headers;

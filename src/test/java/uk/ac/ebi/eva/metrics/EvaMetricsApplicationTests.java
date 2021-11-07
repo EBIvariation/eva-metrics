@@ -12,7 +12,7 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 import uk.ac.ebi.eva.metrics.count.CountServiceParameters;
 import uk.ac.ebi.eva.metrics.metric.Metric;
-import uk.ac.ebi.eva.metrics.metric.MetricComputeImpl;
+import uk.ac.ebi.eva.metrics.metric.BaseMetricCompute;
 
 import java.net.URI;
 import java.util.Arrays;
@@ -49,12 +49,12 @@ class EvaMetricsApplicationTests {
 
     @Test
     public void testMetricCount() {
-        MetricComputeImpl metricComputeImpl = getMetricCompute();
-        metricComputeImpl.saveMetricsCountsInDB();
+        BaseMetricCompute baseMetricCompute = getMetricCompute();
+        baseMetricCompute.saveMetricsCountsInDB();
     }
 
-    public MetricComputeImpl getMetricCompute() {
-        return new MetricComputeImpl(countServiceParameters, restTemplate) {
+    public BaseMetricCompute getMetricCompute() {
+        return new BaseMetricCompute(countServiceParameters, restTemplate) {
             @Override
             public String getProcessName() {
                 return "test-process";
