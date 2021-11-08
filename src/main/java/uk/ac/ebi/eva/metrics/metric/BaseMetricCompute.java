@@ -46,7 +46,9 @@ public abstract class BaseMetricCompute implements MetricCompute {
 
         List<Count> counts = new ArrayList<>();
         for (Metric metric : getMetrics()) {
-            counts.add(new Count(processName, identifier, metric.getName(), metric.getCount()));
+            Count count = new Count(processName, identifier, metric.getName(), metric.getCount());
+            counts.add(count);
+            logger.info(count.toString());
         }
 
         HttpHeaders headers;
