@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class BaseMetricCompute implements MetricCompute {
+public abstract class BaseMetricCompute<T extends Metric> implements MetricCompute<T> {
     private static final Logger logger = LoggerFactory.getLogger(uk.ac.ebi.eva.metrics.metric.MetricCompute.class);
     private static final String URL_PATH_SAVE_COUNT = "/v1/bulk/count";
 
@@ -30,12 +30,12 @@ public abstract class BaseMetricCompute implements MetricCompute {
         this.restTemplate = restTemplate;
     }
 
-    public void clearCount(Metric metric) {
+    public void clearCount(T metric) {
         metric.clearCount();
     }
 
     public void clearCount() {
-        for (Metric metric : getMetrics()) {
+        for (T metric : getMetrics()) {
             metric.clearCount();
         }
     }
@@ -45,7 +45,7 @@ public abstract class BaseMetricCompute implements MetricCompute {
         String identifier = getIdentifier();
 
         List<Count> counts = new ArrayList<>();
-        for (Metric metric : getMetrics()) {
+        for (T metric : getMetrics()) {
             Count count = new Count(processName, identifier, metric.getName(), metric.getCount());
             counts.add(count);
             logger.info(count.toString());

@@ -49,19 +49,19 @@ class EvaMetricsApplicationTests {
 
     @Test
     public void testMetricCount() {
-        BaseMetricCompute baseMetricCompute = getMetricCompute();
+        BaseMetricCompute<TestMetric> baseMetricCompute = getMetricCompute();
         baseMetricCompute.saveMetricsCountsInDB();
     }
 
-    public BaseMetricCompute getMetricCompute() {
-        return new BaseMetricCompute(countServiceParameters, restTemplate) {
+    public BaseMetricCompute<TestMetric> getMetricCompute() {
+        return new BaseMetricCompute<TestMetric>(countServiceParameters, restTemplate) {
             @Override
             public String getProcessName() {
                 return "test-process";
             }
 
             @Override
-            public List<Metric> getMetrics() {
+            public List<TestMetric> getMetrics() {
                 return Arrays.stream(TestMetric.values()).collect(Collectors.toList());
             }
 
@@ -71,12 +71,12 @@ class EvaMetricsApplicationTests {
             }
 
             @Override
-            public long getCount(Metric metric) {
+            public long getCount(TestMetric metric) {
                 return metric.getCount();
             }
 
             @Override
-            public void addCount(Metric metric, long count) {
+            public void addCount(TestMetric metric, long count) {
                 metric.addCount(count);
             }
         };

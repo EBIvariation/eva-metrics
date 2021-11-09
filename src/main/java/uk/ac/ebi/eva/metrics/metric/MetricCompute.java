@@ -2,18 +2,18 @@ package uk.ac.ebi.eva.metrics.metric;
 
 import java.util.List;
 
-public interface MetricCompute {
+public interface MetricCompute<T extends Metric> {
     String getProcessName();
 
-    List<Metric> getMetrics();
+    List<T> getMetrics();
 
     String getIdentifier();
 
-    long getCount(Metric metric);
+    long getCount(T metric);
 
-    void addCount(Metric metric, long count);
+    void addCount(T metric, long count);
 
-    void clearCount(Metric metric);
+    void clearCount(T metric);
 
     void clearCount();
 
