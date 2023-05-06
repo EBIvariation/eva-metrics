@@ -15,7 +15,7 @@ public class MetricConfiguration {
         return new CountServiceParameters();
     }
 
-    @Bean
+    @Bean(name="COUNT_STATS_REST_TEMPLATE")
     public RestTemplate restTemplate(RestTemplateBuilder builder, CountServiceParameters countServiceParameters) {
         return builder.basicAuthentication(countServiceParameters.getUserName(), countServiceParameters.getPassword()).build();
     }
