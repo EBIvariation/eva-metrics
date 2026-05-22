@@ -1,20 +1,20 @@
 package uk.ac.ebi.eva.metrics;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 import uk.ac.ebi.eva.metrics.count.CountServiceParameters;
-import uk.ac.ebi.eva.metrics.metric.Metric;
 import uk.ac.ebi.eva.metrics.metric.BaseMetricCompute;
+import uk.ac.ebi.eva.metrics.metric.Metric;
 
 import java.net.URI;
 import java.util.Arrays;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @TestPropertySource("classpath:metric-test.properties")
 public class EvaMetricsApplicationTests {
@@ -38,7 +38,7 @@ public class EvaMetricsApplicationTests {
     private MockRestServiceServer mockServer;
     private final String URL_PATH_SAVE_COUNT = "/v1/bulk/count";
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         mockServer = MockRestServiceServer.createServer(restTemplate);
         mockServer.expect(ExpectedCount.manyTimes(), requestTo(new URI(countServiceParameters.getUrl() + URL_PATH_SAVE_COUNT)))
