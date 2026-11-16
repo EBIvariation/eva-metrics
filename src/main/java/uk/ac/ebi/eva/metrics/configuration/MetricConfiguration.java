@@ -29,6 +29,12 @@ public class MetricConfiguration {
                 .build();
     }
 
+    /**
+     * Forces HTTP/1.1 for calls to the count-stats service. With HTTP/2 the server
+     * responds with a GOAWAY frame and closes the connection mid-use, causing request failures.
+     *
+     * TODO: Remove the HTTP/1.1 pin once the server-side issue is fixed.
+     */
     static HttpClient http11Client() {
         return HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_1_1)
